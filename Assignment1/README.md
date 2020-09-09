@@ -1,2 +1,3 @@
 # JihyeWoo-ProgVisFA20
-Hello? Assignment 1
+Assignment 1: Creating a simple scatterplot with SVG
+
