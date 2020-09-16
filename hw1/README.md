@@ -1,7 +1,7 @@
-# JihyeWoo-ProgVisFA20
-
-# Assignment1-Creating a simple scatterplot with SVG
-
+# [Week2] Homework 1
+===
+# Creating a simple scatterplot with SVG
+---
   This is a screenshot of my plot for this week's assignment.<br>
   
   Update on 9/14/2020<br>
