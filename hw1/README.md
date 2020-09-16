@@ -1,6 +1,6 @@
-# [Week2] Homework 1
+[Week2] Homework 1
 ===
-# Creating a simple scatterplot with SVG
+Creating a simple scatterplot with SVG
 ---
   This is a screenshot of my plot for this week's assignment.<br>
   
