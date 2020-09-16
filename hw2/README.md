@@ -1,4 +1,4 @@
-*Week3/ hw2
+[Week3] hw2
 ===
 
 
