@@ -10,6 +10,6 @@
   <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw1/hw1_screenshot_REVISE.png?raw=true">
   
   First version on 9/8/2020<br>
-  <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw1/hw1_screenshot?raw=true">
+  <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw1/hw1_screenshot.png?raw=true">
   
   
