@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Jihye Woo - Assignment 1</title>
+        <script type="text/javascript" src= "https://d3js.org/d3.v6.js"></script>
+        <style type="text/css">
+            
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+
+
+            const svgWidth = 500;
+            const svgHeight = 500;
+
+            const dataset = [
+                            [200, 40], [170, 100], [400, 60], [100, 150], [410, 300], [120, 220], [310, 260], [400, 110]
+            ];
+
+            const svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", svgWidth)
+                        .attr("height", svgHeight)
+                        .attr("style", "outline: thin solid black;");
+
+
+            svg.selectAll("circle")
+                .data(dataset)
+                .enter()
+                .append("circle")
+                .attr("cx", d => d[0])
+                .attr("cy", d => svgHeight - d[1])
+                .attr("r", 10)
+                .attr("fill", "#69b3a2");
+
+
+            svg.selectAll("text")
+                .data(dataset)
+                .enter()
+                .append("text")
+                .text(d => d)
+                .attr("x", d => d[0] +10)
+                .attr("y", d => svgHeight - d[1] +2)
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "11px")
+                .attr("fill", "grey");
+
+        </script>
+    </body>
+</html>
