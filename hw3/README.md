@@ -8,4 +8,9 @@ A sneaker's shape path represents my steps. The more I walked, the darker the re
 
 Here is an image of how that displays.
 
+- Updated on Sep 28, 2020
+
+<img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw3/hw3_screenshot_update_0928.png?raw=true">
+
+- Originally Created on Sep 21, 2020
 <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw3/hw3_screenshot.png?raw=true">
