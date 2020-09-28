@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>hw3 - Path Steps</title>
+        <script src= "https://d3js.org/d3.v6.js"></script>
+        <style type="text/css"> 
+        
+          h1 {
+            font-family: 'Garamond', 'Open Sans', 'Calibri', sans-serif;
+            font-size: 26px;
+            color: #BB1F1F;
+          }
+          
+
+          body {
+            font-family: 'Helvetica', 'Open Sans', Calibri, sans-serif;
+            font-size: 16px;
+            color: #201C1C;
+            background: #F7F7F7;
+            padding: 50px;
+          }
+
+        	svg{
+                width: 1400px;
+                height: 500px;
+          }
+        
+
+        </style>
+    </head>
+    <body>
+       <h1>How many steps did I walk last week?</h1>
+
+        <div>
+        This visualization shows the number of steps I walked last week from September 14 to 20, 2020.
+        A sneaker's shape represents my steps. The more I walked, the darker the red color appears.
+        </div>
+        
+        <svg>
+        
+        <script type="text/javascript">
+
+
+        const dataset = d3.csv("weeklysteps.csv").then(data => {
+
+
+          const maxData = d3.max(data, d=>+d.steps);
+          const minData = d3.min(data, d=>+d.steps);
+          const myColor = d3.scaleLinear()
+                            .domain([minData, maxData])
+                            .range(["white", "#C42F2F"]);
+
+          const shoes = ["M 50 120 Q 40 40 60 40 Q 80 40 70 60 Q 80 80 110 50 C 150 70 180 80 180 100 Q 170 120 140 120 L 50 120 "];
+
+          const row = data.length;
+          const size = 160;
+          const svg = d3.select("svg");
+
+      
+          //source
+          svg.append("text")
+              .attr("class", "source")
+              .attr("transform", "translate(1150, 400)")
+              .attr("font-size" , "13px")
+              .style("fill", "gray")
+              .text("Data Source: Apple iPhone Health");
+
+          //group
+          const g = svg.selectAll("g")
+                        .data(data, d=>d)
+                        .enter()
+                        .append("g")
+                        .attr("transform", (d,i)=>{
+                                const x = (i % row) * size; 
+                                const y = (Math.floor(i/row)+0.5) * size;
+                                return 'translate(' + [x,y] + ')';})
+                        .attr("fill", d=> myColor(+d.steps))
+                        .attr("stroke", "gray")
+                        .attr("stroke-width", "1px");
+
+          g.append("path")
+           .attr("d", shoes);
+
+          //Make Labels
+          g.append("text")
+            .attr("x", size/2 + 30) //x coordinate
+            .attr("y", size + 10) //y coordinate
+            .attr("text-anchor", "middle") //horizontal text alignment 
+            .attr("font-family", "sans-serif")
+            .attr("dy", "5px") //y coordinate offset
+            .attr("fill", "#201C1C")
+            .attr("stroke", "none")
+            .text(d=>d.day); //the text 
+
+          g.append("text")
+            .attr("x", size/2 + 30) //x coordinate
+            .attr("y", size + 50) //y coordinate
+            .attr("text-anchor", "middle") //horizontal text alignment 
+            .attr("font-family", "sans-serif")
+            .attr("dy", "5px") //y coordinate offset   
+            .attr("fill", "#201C1C")
+            .attr("stroke", "none")
+            .text(d=>+d.steps); //the text        
+
+
+        });
+          
+         
+ 
+        </script>
+        </svg> 
+    </body>
+  </html>
