@@ -7,4 +7,8 @@ The attached visualization is a bar chart that shows my monthly number of steps 
 
 Here is an image of how that displays.
 
+- Updated on Sep 28, 2020
+<img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw2/hw2_screenshot_update_0928.png?raw=true">
+
+- Created on Sep 15, 2020
 <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw2/hw2_screenshot.png?raw=true">
