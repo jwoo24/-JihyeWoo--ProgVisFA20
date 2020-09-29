@@ -8,8 +8,12 @@ A sneaker's shape path represents my steps. The more I walked, the darker the re
 
 Here is an image of how that displays.
 
-- Updated on Sep 29, 2020: Utilized '''d3.scaleSequential()
-                             .interpolator(d3.interpolateOrRd);'''
+- Updated on Sep 29, 2020: Utilized 
+```
+d3.scaleSequential()
+.domain([minData,maxData])
+.interpolator(d3.interpolateOrRd);
+```
 <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw3/hw3_screenshot_update_0929.png?raw=true">
 
 - Updated on Sep 28, 2020
