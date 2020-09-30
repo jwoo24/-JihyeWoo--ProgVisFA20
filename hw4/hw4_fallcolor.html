@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>hw4 - Fall Color</title>
+        <script src= "https://d3js.org/d3.v6.js"></script>
+        <style type="text/css"> 
+        
+
+          body {
+            font-family: 'Roboto', 'Open Sans', Calibri, sans-serif;
+            font-size: 16px;
+            color: #222326;
+            background: #F6EEE0;
+            padding: 50px;
+          }
+
+        </style>
+    </head>
+    <body>
+
+        <svg width="1000px" height="300px">
+           <defs>
+            <radialGradient id="Gradient2" cy="80%" fx="80%" fy="90%" r="4">
+                <stop offset="0%" stop-color="#ED6E46" />
+                <stop offset="10%" stop-color="#b4c63b" />
+                <stop offset="20%" stop-color="#ef5b2b" />
+                <stop offset="30%" stop-color="#503969" />
+                <stop offset="40%" stop-color="#ab6294" />
+                <stop offset="50%" stop-color="#1cb98f" />
+                <stop offset="60%" stop-color="#48afc1" />
+                <stop offset="70%" stop-color="#b4c63b" />
+                <stop offset="80%" stop-color="#ef5b2b" />
+                <stop offset="90%" stop-color="#503969" />
+                <stop offset="100%" stop-color="#ab6294" />
+            </radialGradient>
+        </defs>
+          <text x="1%" y="30%" fill= "url(#Gradient2)" font-family= "'Times', san-serif" font-size="100">Autumn in New York</text>
+          <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw4/fall.jpg?raw=true">
+          <div>Image Source: Flickr @gigi_nyc</div>
+        </svg>
+        
+        <script>
+
+          const svg = d3.select("svg");
+          const width = 600;
+          const height = 100;
+
+          const dataset = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+          const maxData = d3.max(dataset);
+          const minData = d3.min(dataset);
+          
+          const  myColor = d3.scaleOrdinal().domain(dataset)
+                                            .range(d3.schemeRdYlGn[8]);
+                                            
+            svg.selectAll("rect")
+                 .data(dataset)
+                 .enter()
+                 .append("rect")
+                 .attr("x", (d,i) => i * (width/dataset.length) + 15)
+                 .attr("y", 150)
+                 .attr("width", 40)
+                 .attr("height", 40)
+                 .attr("fill", d => myColor(d));
+       
+ 
+        </script>
+    </body>
+</html>
