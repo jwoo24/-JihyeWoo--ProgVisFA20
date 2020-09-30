@@ -3,7 +3,7 @@
 Color Inspiration
 ---
 
-The attached is my color visualization inspired by a fall scene of beautiful foliage in Central Park. I created a title using a <radicalGradient> showing different colors by the gradient's focal point.
+The attached is my color visualization inspired by a fall scene of beautiful foliage in Central Park. I created a title using a radicalGradient showing different colors by the gradient's focal point.
 
 Here is an image of how that displays.
 
