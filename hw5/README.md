@@ -1,6 +1,6 @@
 [Week7] Homework 5
 ===
-Interative Tooltip
+Interactive Tooltip
 ---
 
 The attached visualization shows the number of steps I walked last week from September 14 to 20, 2020. This visualization is originally from my previous homework 3, but the interactive tooltip feature is added to this version.
