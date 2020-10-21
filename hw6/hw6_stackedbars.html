@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>hw6-Stacked Bars</title>
+        <script type="text/javascript" src= "https://d3js.org/d3.v6.js"></script>
+        <style type="text/css">
+            svg {
+            font: 10px sans-serif;
+            shape-rendering: crispEdges;
+        }
+
+            h1 {
+            font-family: 'Garamond', 'Open Sans', 'Calibri', sans-serif;
+            font-size: 20px;
+            color: black;
+        }
+            body {
+            font-family: 'Helvetica', 'Open Sans', Calibri, sans-serif;
+            background: #F2F4F4;
+            padding: 50px;
+            width: 960px;
+            height: 500px;
+            position: relative;
+        }
+
+        
+        </style>
+    </head>
+    <body>
+       <h1>My Screen Time on the Phone</h1>
+       <div>Oct 12 - 18, 2020</div>
+        <script type="text/javascript">
+        
+            const margin = {top: 20, right: 160, bottom: 35, left: 30};
+            const width = 960 - margin.left - margin.right,
+                  height = 500 - margin.top - margin.bottom;
+
+            const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
+
+        //data
+        const dataset = d3.csv("screendata.csv").then(data => {
+            
+
+            //set up barchart scales
+            const xScale = d3.scaleBand()
+                        .domain(d3.range(data.length))
+                        .range([0, width])
+                        .paddingInner(0.05);
+
+            const yScale = d3.scaleLinear()
+                        .domain([0, d3.max(data, d => +d.social + +d.entertainment + +d.information + +d.productivity + +d.travel + +d.creativity)])
+                        .range([height, 0]);
+
+            const myColor = d3.scaleOrdinal(d3.schemeTableau10);
+
+            //define and draw axes
+            const xAxis = d3.axisBottom(xScale);
+            const yAxis = d3.axisLeft(yScale);
+
+            //stack layout params
+            const stack = d3.stack()
+                            .keys(["social", "entertainment", "information", "productivity", "travel", "creativity"]);
+                        
+            //stack the data
+            const series = stack(data);
+
+                console.log(series); 
+
+        
+            //make data groups
+            const groups = svg.selectAll("g")
+                              .data(series)
+                              .enter()
+                              .append("g")
+                              .style("fill", (d,i)=> myColor(i));
+
+            //make rects
+            const bars = groups.selectAll("rect")
+                               .data(d=>d)
+                               .enter()
+                               .append("rect")
+                               .attr("x", (d,i) => xScale(i))
+                               .attr("y", d=> yScale(d[1])) 
+                               .attr("height", d=> yScale(d[0])-yScale(d[1]))
+                               .attr("width", xScale.bandwidth());
+ 
+        });
+
+        </script>
+    </body>
+</html>
