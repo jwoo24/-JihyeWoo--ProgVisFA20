@@ -14,6 +14,7 @@ After the organization, I created a JSON file putting the data following the ord
 ### Results
 The attached visualization shows the nubmer of Nobel Prize winner by category and country.
 Here is a GIF image of how that displays using a tooltip.
+
 <img src="https://github.com/jwoo24/JihyeWoo-ProgVisFA20/blob/master/hw7/hw7_screenshot_animated.gif?raw=true">
 
 You can see the static images below with and without the tooltip.
