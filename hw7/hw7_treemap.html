@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>JSON-Nobel Prize</title>
+        <script type="text/javascript" src= "https://d3js.org/d3.v6.js"></script>
+        <style type="text/css">
+          
+        svg{
+        	background-color: #FFFCF9;
+        }
+
+          h1 {
+            font-family: 'Garamond', 'Open Sans', 'Calibri', sans-serif;
+            font-size: 25px;
+            text-align: center;
+            color: #201C1C;
+          }
+
+          h3 {
+            font-family: 'Garamond', 'Open Sans', 'Calibri', sans-serif;
+            font-size: 15px;
+            text-align: center;
+            color: #201C1C;
+          }
+
+          body {
+            font-family: 'Garamond', 'Open Sans', 'Calibri', sans-serif;
+            font-size: 16px;
+            color: #201C1C;
+            text-align: center;
+            background: #FFFCF9;
+            padding: 10px;
+          }
+
+
+          .rects{
+          	stroke: #230903;
+          }
+
+          .labels{
+          	font-family: sans-serif;
+          	fill: white;
+          	font-size: .71em;
+          	font-weight: 550;
+          }
+
+          .values{
+          	font-family: sans-serif;
+          	fill: white;
+          	font-size: .71em;
+          	font-weight: 500;
+          }
+
+          .titles{
+          	font-family: sans-serif;
+          	fill: #230903;
+          	font-size: 1em;
+          	font-weight: 550;
+          }
+
+          #tooltip {
+            font-family: sans-serif;
+            background-color: #A4A4A4;
+            padding: 10px;   
+            border-radius: 5px; 
+            position: absolute;
+            text-align: center; 
+            width: 175px;					
+            height: auto;				
+            font: 20px ;		
+            border: 0px;				
+            pointer-events: none;	
+          }
+         
+          #chart {
+            font: 15px 'Pontano Sans';
+          	height: 1000px;
+            width: 1000px;
+          } 
+          
+
+        </style>
+    </head>
+    <body>
+      <header></header>
+        <h1>The Nobel Prize Winners by Category and Country</h1>
+        <h3>From 1901 to 2020<br>(Except for Economics: 1969 to 2020) </h3>
+        <div>Source: <a href="https://www.nobelprize.org/prizes/lists/all-nobel-prizes/">The Nobel Prize Website</a> & <a href="https://en.wikipedia.org/wiki/List_of_Nobel_laureates">Wikipedia</a></div>
+      </header>
+      
+      
+    	<div id= "chart"></div>
+        <script type="text/javascript">
+           
+            //Everything we are familiar with:
+            const w = 1500;
+            const h = 1000;
+            const padding = 60;
+            
+                    
+
+            d3.json("nobel.json")
+              .then(function(data) {
+                const root = d3.hierarchy(data)
+            			         .sum(d=>d.value)
+                           .sort((a,b)=>b.value - a.value);
+                
+                const treemap = d3.treemap()
+                           	  .size([w, h])
+                           	  //.tile(d3.treemapSquarify)
+                           	   //.tile(d3.treemapBinary);
+                           	  //.tile(d3.treemapDice);
+                           	   //.tile(d3.treemapSlice);
+                           	   //.tile(d3.treemapSliceDice);
+                           	  .padding(15)  
+                           	  .paddingInner(4);
+
+                treemap(root); 
+
+                //let's look at root
+                // console.log(root);
+
+                // const myColor = d3.scaleOrdinal(d3.schemeCategory10)
+
+                const myColor = d3.scaleOrdinal()
+                    .domain(["Physics", "Chemistry", "Medicine", "Literature", "Peace", "Economics"])
+                    .range(["#2886F0", "#EC7C0B", "#0EBD76", "#B08114", "#6F1BE8", "#F3CF06"])
+                
+                const opacity = d3.scaleLinear()
+            				  .domain([1, 10])
+            				  .range([.5, 1]);
+ 
+                //tooltip
+                const tooltip = d3.select("#chart")
+                                  .append("div")
+                                  .attr("id", "tooltip");
+                                  
+
+                const svg = d3.select("#chart")
+            			        .append("svg")
+                          .attr("width", w)
+                          .attr("height", h)
+                          .append("g");
+
+                //our treemap rects
+                svg.selectAll("rect")
+                  .data(root.leaves())
+                  .enter()
+                  .append("rect")
+                  .attr("class", "rects")
+                  .attr("x", d=> d.x0)
+                  .attr("y", d=> d.y0)
+                  .attr("width", d=> d.x1 - d.x0)
+                  .attr("height", d=> d.y1 - d.y0)
+                  .style("fill", d=> myColor(d.parent.data.name))
+                  .style("opacity", d=> opacity(d.data.value))
+                  .on("mouseover", (event, d)=> {
+                    d3.selectAll("#tooltip")
+                      .transition()
+                      .duration(300)
+                      .style("opacity", 0.9)
+                      .style("left", (event.pageX + 2) + "px")
+                      .style("top", (event.pageY + 2) + "px")
+                      tooltip.html(function () {
+                        return "<span>" + "Country: " + d.data.name + "<br />" +
+                            "Number of Laureates: " + d.data.value + "</span>";}); 
+                  })
+                  .on("mouseout", (event, d)=> {
+                    d3.select("#tooltip")
+                      .transition()
+                      .style("opacity", 0);
+                  })
+                  .on("mousemove", (event, d) =>{
+                    d3.select("#tooltip")
+                      .style("left", (event.pageX + 2) + "px")
+                      .style("top", (event.pageY + 2) + "px")
+                  });
+
+                
+
+                  // .on("mousemove", d => {
+                  //   tooltip.transition()
+                  //          .duration(200)
+                  //          .style("opacity", 0.8);
+                  //   tooltip.attr("name", d=>d.data.value)
+                  //   tooltip.html(
+                  //     "Name: " +  d.data.name + "<br>" +
+                  //     "Value: " + d.data.value
+                  //   )
+                  //     .style('top', `${d3.event.pageY + 10}px`)
+                  //     .style('left', `${d3.event.pageX + 8}px`);
+                  //   })
+                  //   .on("mouseout", d => {
+                  //     tooltip.transition()
+                  //     .duration(200)
+                  //     .style('opacity', 0);
+                  //     });
+
+
+                //our subgroup titles
+                svg.selectAll(".titles")
+                  .data(root.descendants().filter(d=>d.depth==1))
+                  .enter()
+                  .append("text")
+                  .attr("class", "titles")
+                  .attr("x", d=>d.x0 + 15)
+                  .attr("y", d=>d.y0 + 10)
+                  .text(d=>d.data.name);
+
+
+                //our name labels
+                svg.selectAll(".labels")
+                  .data(root.leaves())
+                  .enter()
+                  .append("text")
+                  .attr("class", "labels")
+                  .attr("x", d=> d.x0 +5)
+                  .attr("y", d=> d.y0 +20)
+                  .text(d=>d.data.name);
+
+                  // svg.selectAll(".labels")
+                  // .append('text')
+                  // .selectAll('tspan')
+                  // .data(d => d.data.name.split(/(?=[A-Z][^A-Z])/g))
+                  // .enter()
+                  // .append('tspan')
+                  // .attr('x', 4)
+                  // .attr('y', (d, i) => 13 + 10*i)
+                  // .text(d => d);
+
+
+                //our value labels (#s)
+                svg.selectAll(".values")
+                    .data(root.leaves())
+                    .enter()
+                    .append("text")
+                    .attr("class", "values")
+                    .attr("x", d=> d.x0+5) 
+                    .attr("y", d=> d.y0+33)
+                    .text(d=> d.data.value);
+                  
+              })
+        
+        </script>
+    </body>
+</html>
