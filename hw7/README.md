@@ -1,8 +1,8 @@
 [Week9] Homework 7
 ===
 # Hierarchy Interactive Treemap
+## The nubmer of Nobel Prize winner by category and country
 ---
-### The nubmer of Nobel Prize winner by category and country
 #### Process
 The idea was brought by recent the Nobel Prize 2020, and then I was curious about the number of winners by country. Information about the overall winners by country can be found online, but there is no integrated database of the number of winners by category and country.  
 Based on the list of winners by category, I organized them by their nationality. 
