@@ -1,6 +1,5 @@
-[Week9] Homework 7
+[Week9] Homework 7: Hierarchy Interactive Treemap
 ===
-# Hierarchy Interactive Treemap
 ## The nubmer of Nobel Prize winner by category and country
 
 ### Process
