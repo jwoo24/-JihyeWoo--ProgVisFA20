@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/transitions.css">
+
+        <title>7. Unique Names</title>
+
+    </head>
+    <body>
+ <div class="verticalcenter">
+        </div> 
+  
+          <div class="content"></div>
+
+                <h2>
+                    <p class="black">What is the most unique dog name?
+                            </p>
+                        </h2>
+                    <h4>
+                        <p class="black"><b>4,424 dogs</b> were found to have their own unique names.
+                            <br>
+                            Here is a list of fun and unique names that I found.                            
+                        </p>
+                        </h4>
+
+
+     <!-- CSV PART -->
+     <script src= "https://d3js.org/d3.v6.js"></script>        
+     
+
+     <script type="text/javascript">
+       
+
+
+        // dataset
+        const dataset = {
+             "children": [{"name": "LOL", "num": 50},
+           {"name":"METALLIC", "num": 50},
+           {"name":"MOCHACCINO", "num": 50},
+           {"name":"MCAFEE", "num": 50},
+           {"name":"SUZI-Q", "num": 50},
+           {"name":"JPMORGAN", "num": 50},
+           {"name":"LUCK-LUCK", "num":50},
+           {"name":"XTACY", "num": 50},
+           {"name":"SENSATION", "num": 50},
+           {"name":"TEMPTATION", "num":50}
+           ]};
+
+        const diameter = 600;
+        const myColor = d3.scaleOrdinal(d3.schemeSet2);
+
+        const bubble = d3.pack(dataset)
+            .size([diameter, diameter])
+            .padding(2);
+
+        const svg = d3.select("body")
+            .append("svg")
+            .attr("width", diameter)
+            .attr("height", diameter)
+            .attr("class", "bubble");
+
+        const nodes = d3.hierarchy(dataset)
+            .sum(function(d) { return d.num; });
+
+        const node = svg.selectAll(".node")
+            .data(bubble(nodes).descendants())
+            .enter()
+            .filter(function(d){
+                return  !d.children
+            })
+            .append("g")
+            .attr("class", "node")
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+
+        node.append("title")
+            .text(function(d) {
+                return d.name + ": " + d.num;
+            });
+
+        node.append("circle")
+            .attr("r", function(d) {
+                return d.r;
+            })
+            .style("fill", (d,i)=>myColor(i));
+
+        node.append("text")
+            .attr("dy", ".2em")
+            .style("text-anchor", "middle")
+            .text(function(d) {
+                return d.data.name.substring(0, d.r / 3);
+            })
+            .attr("class", "bar-label")
+            .attr("font-size", function(d){
+                return d.r/5;
+            })
+            .attr("fill", "white");
+
+        d3.select(self.frameElement)
+            .style("height", diameter + "px");
+      
+  </script>
+    
+
+            <div class="bottomarrow">
+                <a href="page6.html">
+                    <img src="assets/prev.svg" class="prev"></a>
+                <a href="page8.html">
+                    <img src="assets/next.svg" class="next"></a>
+            </div>
+
+        
+    </body>
+
+</html>

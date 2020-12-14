@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/transitions.css">
+
+        <title>5. Pure vs Mix</title>
+        
+    </head>
+    <body>
+
+        <div class="verticalcenter">
+        </div>
+        <div class="content"></div>
+
+            <h2>
+                <p class="black">Pure vs. Mix
+            </p>
+        </h2>
+            <h4>
+                <p class="black">In the breed data, there are four different types of breed indicators.      
+                </p></h4>
+                
+                <ul>
+                        <li>Pure: Only stated with one specific breed name</li>
+                        <li>Mixed-breed: Contain a “mix” in the breed name</li>
+                        <li>Crossbreed: Contain a “crossbreed” in the breed name</li>
+                        <li>Unknown Breed: Stated as “unknown”</li>
+                </ul>
+                  
+        
+                <h4><p class="black">
+                Based on those indicators, over 70% of the overall sample population is predominantly <b>pure breed</b>. 
+            </p>    
+            </h4>
+   
+            <!-- CSV PART -->
+            <div class="svg"></div>
+            <script src= "https://d3js.org/d3.v6.js"></script> 
+            <script type="text/javascript">
+
+                const margin = 50;
+                const width = 500 - 2 * margin; 
+                const height = 500 - 2 * margin; 
+                const padding = 100;
+      
+                const svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", width)
+                        .attr("height", height);
+
+            
+                const dataset = [
+                    {"types": "Pure", "value": "0.72"},
+                    {"types": "Mix", "value": "0.04"},
+                    {"types": "Crossbreed", "value": "0.13"},
+                    {"types": "Unknown", "value": "0.11"}
+                ];
+            
+                const myColor = d3.scaleOrdinal(d3.schemeSpectral[6]);
+
+                const outerRadius = width/2;
+                const innerRadius = 0; 
+            
+               
+                const arcs = d3.arc()  
+                            .innerRadius(innerRadius)
+                            .outerRadius(outerRadius)
+                        
+                const pie = d3.pie()
+                            .value(d => d.value);
+
+                const groups = svg.selectAll("g.arc")
+                                .data(pie(dataset))
+                                .enter()
+                                .append("g")
+                                .attr("class", "arc")
+                                .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")"); 
+                                
+                groups.append("path")
+                    .attr("fill", (d,i)=> myColor(i))
+                    .attr("d", arcs);
+
+                //Labels
+                groups.append("text")
+                    .attr("transform", d => "translate(" + arcs.centroid(d) + ")")
+                    .attr("text-anchor", "middle")
+                    .attr("class", "bar-label")
+                    .text(d => `${d.data.types}` + ": " + d.value*100 + "%");
+            </script>
+        
+
+   
+            <div class="note">
+            * A crossbred dog is a breed that results from the cross usually between two or more known breeds. 
+            <br>
+            * A crossbred dog is different from a mixed-breed, which has its ancestry from multiple origins.
+            </div>
+
+
+            <div class="bottomarrow">
+                <a href="page4.html">
+                    <img src="assets/prev.svg " class="prev "></a>
+                <a href="page6.html">
+                    <img src="assets/next.svg " class="next "></a>
+            </div>
+
+    </body>
+
+</html>

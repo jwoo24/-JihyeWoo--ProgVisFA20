@@ -1,0 +1,436 @@
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Open+Sans:ital,wght@0,300;0,600;1,800&family=Roboto+Mono:wght@100&display=swap');
+
+
+:root {
+	--primary-color: #3a4052;
+}
+
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	padding: 0;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15px;
+	line-height: 30px;
+	text-align: center;
+	letter-spacing: 0.09em;
+	color: white;
+	height: 100vh;
+	transition: background-color 0.5s;
+	}
+
+
+main {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+a {
+	text-decoration: none;
+    color: #38a3fa;
+}
+
+div.parent {
+	text-align: center;
+	}
+ul { 
+	display: inline-block; 
+    text-align: left; 
+    color: black;
+    }
+    
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.credit {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    margin: 0;
+    z-index: 1;
+    font-size: 0.7em;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.note {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    margin: 0;
+    z-index: 1;
+    font-size: 0.7em;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+    color: black;
+    text-align: right;
+}
+
+h1 {
+	font-family: 'nerko one';
+	font-weight: 300;
+	font-size: 100px;
+	line-height: 1.2;
+	margin-bottom: 15px;
+}
+
+h2 {
+    font-family: 'nerko one';
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    color: white;
+    font-size: 45px;
+    line-height: 150px;
+    text-align: center;
+    margin: 10px 0 10px 0;
+
+}
+
+h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 100;
+    color: white;
+    font-size: 25px;
+    line-height: 50px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin: 0;
+}
+
+h4 {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 100;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+h5 {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 100;
+    letter-spacing: 0.03em;
+    color: black;
+    font-size: 17px;
+    line-height: 21.5px;
+    text-align: center;
+    margin-block-start: 0.6em;
+
+}
+
+h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    color: black;
+    font-size: 15x;
+    line-height: 38px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+.small {
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font: italic;
+    font-size: 13px;
+    text-align: left;
+    color: white;
+}
+
+.black {
+    color: black;
+}
+
+.white {
+    color: white;
+}
+
+
+.showcase {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: #fff;
+	padding: 0 20px;
+}
+
+.video-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: var(--primary-color) url('banner.mov') no-repeat center
+		center/cover;
+}
+
+.video-container video {
+	min-width: 100%;
+	min-height: 100%;
+  	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	object-fit: cover;
+}
+
+.video-container:after {
+	content: '';
+	z-index: 1;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(43, 41, 38, 0.5);
+	position: absolute;
+}
+
+.color-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: rgba(82, 79, 68, 0.945);
+	position: absolute;
+}
+
+.chart {
+    display: inline-block;
+    margin: auto;
+    height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+
+.content {
+	z-index: 2;
+	margin: 10px;
+}
+
+.maintext {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color:black;
+	padding: 0 20px;
+}
+
+.btn {
+	display: inline-block;
+	padding: 10px 30px;
+	background: var(--primary-color);
+	color: #fff;
+	border-radius: 5px;
+	border: solid #fff 1px;
+	margin-top: 25px;
+	opacity: 0.7;
+}
+
+.btn:hover {
+	transform: scale(0.98);
+}
+
+
+.verticalcenter {
+    /* height: 50%; */
+    /*display: flex;*/
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+
+.verticalcenterb {
+    /*height: 100%;*/
+    /*display: flex;*/
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+
+.verticalcenterwide {
+    height: 100%;
+    /*display: flex;*/
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 75px;
+    padding-right: 75px;
+
+}
+
+.bottomarrow {
+    position: absolute;
+    width: 50%;
+    bottom: 50px;
+    left: 25%;
+    text-align: center;
+}
+
+.prev,
+.next {
+    width: 40px;
+}
+
+.largegraph {
+    /*width: 100%;*/
+    padding: 15px 100px 0px 100px;
+
+}
+
+.one-column {
+    padding-top: 5%;
+    padding-left: 7%;
+    padding-right: 7%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.one-columnb {
+    padding-top: 10%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.two-column {
+    padding-top: 15%;
+    width: 40%;
+    /*display: inline;*/
+    float: left;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.two-column20 {
+    padding-top: 15%;
+    width: 50%;
+    /*display: inline;*/
+    float: left;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.bar-axis {
+	font-family: 'Roboto';
+    font-size: 10px;
+	color: black;
+	padding: 40px 0 0px 0px;
+	opacity: 1;
+}
+
+.bar-label {
+	font-family: 'Roboto';
+    font-size: 10px;
+	color:black;
+	text-align: center;
+	display: flex;
+	opacity: 1;	
+}
+
+
+.barchart {
+    width: 100%;
+    padding: 70px 0 0px 0px;
+    opacity: 0;
+
+}
+        
+
+#tooltip {
+    position: absolute;
+    text-align: center; 
+    padding: 5px;
+	display: inline-block;
+	font-family: sans-serif;
+	font-size: 14px;
+    font-weight: 400;
+    color: black;
+	background: hsla(0, 0%, 97%, 0.411); 
+	border-radius: 10px;
+  }
+
+
+.barchartshow {
+    width: 60%;
+    padding: 20px 0 0px 0px;
+    opacity: 1;
+}
+
+.imgsvg {
+    width: 696px;
+    height: 575px;
+}
+
+
+svg {
+    display: inline-block; 
+    position: relative;
+    align-items: center;
+}
+
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+	overflow: hidden;
+	
+}
+.svg-content {
+    display: inline-block;
+    position: absolute;
+ 
+}
+
+.sparklines {
+    width: 950px;
+    height: 250px;
+}
+
+.map {
+    width: 400px;
+    height: 600px;
+}
+
+.key {
+    width: 300px;
+    height: 200px;
+}

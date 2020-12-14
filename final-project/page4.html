@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/transitions.css">
+
+        <title>4. Popular Breed</title>
+        
+    </head>
+    <body>
+
+      <div class="verticalcenter">
+      </div> 
+
+        <div class="content"></div>
+
+          <h2>
+            <p class="black">What is the most common dog breed in NYC?
+              </p>
+          </h2>
+          <h4>
+            <p class="black">A total of <b>319 breeds</b> are registered.<br>
+              Among them, <b>Yorkshire Terrier</b> is the most popular breed with 21,922 dogs.<br>
+              The <b>Shih Tzu</b> breed and the <b>Chihuahua</b> breed follow the Yorkshire Terrier respectively at second and third place.
+          </h4>
+          <br>
+          <h5><p class="black">
+            🏆 Top 14 Breeds
+          </p></h5>
+       
+  
+       <!-- CSV PART -->
+    <div class="svg"></div>
+    <script src= "https://d3js.org/d3.v6.js"></script>        
+    <script type="text/javascript">
+
+    const margin = 50;
+    const width = 1200 - 2 * margin; 
+    const height = 720 - 2 * margin;
+    const padding = 100;
+    const adj = 100;
+  
+    const svg = d3.select("body")
+              .append("svg")
+              .attr("width", width)
+              .attr("height", height);
+
+    const myColor = d3.scaleOrdinal(d3.schemeTableau10);  
+  
+    //data
+    const dataset = [ 
+                {"breed": "Yorkshire Terrier", "dogs": "21922"},
+                {"breed": "Shih Tzu", "dogs": "19631"},
+                {"breed": "Chihuahua", "dogs": "15647"},
+                {"breed": "Maltese", "dogs": "11391"},
+                {"breed": "Labrador Retriever", "dogs": "11327"},
+                {"breed": "American Pit Bull Mix", "dogs": "10304"},
+                {"breed": "Labrador Retriever Crossbreed", "dogs": "8511"},
+                {"breed": "American Pit Bull Terrier", "dogs": "8319"},
+                {"breed": "Pomeranian", "dogs": "6345"},
+                {"breed": "Havanese", "dogs": "5910"},
+                {"breed": "Beagle", "dogs": "5784"},
+                {"breed": "Jack Russell Terrier", "dogs": "5347"},
+                {"breed": "Golden Retriever", "dogs": "5184"},
+                {"breed": "German Shepherd Dog", "dogs": "5114"}
+                ];
+
+    const maxY = d3.max(dataset, d => +d.dogs);
+
+    const xScale = d3.scaleBand()
+                    .domain(dataset.map(d => d.breed))
+                    .range([margin, width - margin])
+                    .paddingInner(.1);
+
+    const y_start = height - margin*3;
+
+    const yScale = d3.scaleLinear()
+                    .domain([0, maxY])
+                    .range([y_start, margin/2]);
+
+    const bottomAxis = d3.axisBottom().scale(xScale);
+    const leftAxis = d3.axisLeft().scale(yScale);
+    const tooltip = d3.select("body")
+                        .append("div")
+                        .attr("id", "tooltip");
+
+
+    //make bars and append data
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", d => xScale(d.breed))
+        .attr("y", d => yScale(+d.dogs))
+        .attr("width", xScale.bandwidth())
+        .attr("height", d => y_start - yScale(+d.dogs))
+        .style("fill", (d,i)=> myColor(i))
+        .on("mouseover", (event, d)=> {
+          d3.select("#tooltip")
+            .transition()
+            .duration(300)
+            .style("opacity", 0.9)
+            .style("left", (event.pageX + 2) + "px")
+            .style("top", (event.pageY + 2) + "px")
+            .text(d.breed + ": " + d.dogs);
+            })   
+          .on("mouseout", (event, d)=> {
+          d3.select("#tooltip")
+            .transition()
+            .style("opacity", 0);
+          })
+          .on("mousemove", (event, d) =>{
+          d3.select("#tooltip")
+              .style("left", (event.pageX + 2) + "px")
+              .style("top", (event.pageY + 2) + "px")
+          });
+        
+
+    //bottom axis
+    svg.append("g")
+        .attr("class", "bar-axis")
+        .attr("transform", "translate(0," + y_start + ")")
+        .call(bottomAxis)
+        .selectAll("text")
+          .attr("transform", "translate(-10,10)rotate(-45)")
+          .style("text-anchor", "end");
+
+    //left axis
+    svg.append("g")
+        .attr("class", "bar-axis")
+        .attr("transform", "translate(" + margin + ",0)")
+        .call(leftAxis);
+  </script>
+
+      <div class="bottomarrow">
+        <a href="page3.html">
+                    <img src="assets/prev.svg" class="prev"></a>
+        <a href="page5.html">
+                    <img src="assets/next.svg" class="next"></a>
+      </div>
+    
+  </body>
+</html>
