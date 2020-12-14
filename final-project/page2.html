@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/transitions.css">
+
+        <title>2. Number of Dogs by Borough</title>
+           
+    </head>
+    <body> 
+      
+      <div class="verticalcenter"> 
+      </div>
+    
+      <div class="content"></div>
+        
+          <h2>
+            <p class="black">Which borough has the most dogs?
+            </p>
+            </h2>
+          <h4><p class="black"><b>Manhattan</b> has <b>the highest</b> dog population among the five boroughs.<br> <b>Staten Island</b> has <b>the smallest</b> dog population among the five boroughs.
+          </h4>
+           
+
+  <!-- CSV PART -->
+  <div class="svg"></div>
+  <script src= "https://d3js.org/d3.v6.js"></script> 
+  <script>
+    
+    const margin = 50;
+      const width = 1100 - 2 * margin; 
+      const height = 800 - 2 * margin;
+      const adj = 100;
+      
+      const svg = d3.select("body")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+    
+      //data
+      const dataset = [ 
+                  // {"borough": "All", "dogs": "345727"},
+                  {"borough": "Bronx", "dogs": "35869"},
+                  {"borough": "Brooklyn", "dogs": "86971"},
+                  {"borough": "Manhattan", "dogs": "117776"},
+                  {"borough": "Queens", "dogs": "69421"},
+                  {"borough": "Staten Island", "dogs": "30252"},
+                  {"borough": "Invalid Zipcode", "dogs": "5438"}
+                  ];
+  
+               
+      const myColor = d3.scaleOrdinal(d3.schemeSet2);  
+      const maxY = d3.max(dataset, d => +d.dogs);
+      const xScale = d3.scaleBand()
+                      .domain(dataset.map(d => d.borough))
+                      .range([margin*3, width - margin])
+                      .paddingInner(.2);
+      const yScale = d3.scaleLinear()
+                      .domain([0, maxY])
+                      .range([height - margin, margin]);
+      const bottomAxis = d3.axisBottom().scale(xScale);
+      const leftAxis = d3.axisLeft().scale(yScale);
+      const tooltip = d3.select("body")
+                        .append("div")
+                        .attr("id", "tooltip");
+                           
+      
+  
+      //make bars and append data
+      svg.selectAll("rect")
+          .data(dataset)
+          .enter()
+          .append("rect")
+          .attr("x", d => xScale(d.borough))
+          .attr("y", d => yScale(+d.dogs))
+          .attr("width", xScale.bandwidth())
+          .attr("height", d => (height-margin) - yScale(+d.dogs))
+          .style("fill", (d,i)=> myColor(i))
+          .on("mouseover", (event, d)=> {
+          d3.select("#tooltip")
+            .transition()
+            .duration(300)
+            .style("opacity", 0.9)
+            .style("left", (event.pageX + 2) + "px")
+            .style("top", (event.pageY + 2) + "px")
+            .text(d.borough + ": " + d.dogs);
+            })   
+          .on("mouseout", (event, d)=> {
+          d3.select("#tooltip")
+            .transition()
+            .style("opacity", 0);
+          })
+          .on("mousemove", (event, d) =>{
+          d3.select("#tooltip")
+              .style("left", (event.pageX + 2) + "px")
+              .style("top", (event.pageY + 2) + "px")
+          });
+            
+  
+      //x axis
+      svg.append("g")
+          .attr("class", "bar-axis")
+          .attr("transform", "translate(0," + (height - margin) + ")")
+          .call(bottomAxis);
+        
+      //y axis
+      svg.append("g")
+          .attr("class", "bar-axis")
+          .attr("transform", "translate(" + (margin*3) + ",0)")
+          .call(leftAxis);
+
+      //x axis label
+      svg.append("text")
+          .attr("class", "bar-label")
+          .attr("text-anchor", "end")
+          .attr("x", width/1.7)
+          .attr("y", height - margin/1000)
+          .text("Boroughs");
+
+      //y axis label
+      svg.append("text")
+          .attr("class", "bar-label")
+          .attr("text-anchor", "end")
+          .attr("transform", "rotate(-90)")
+          .attr("x", margin-300)
+          .attr("y", margin)
+          .text("Number of Dogs");
+
+    </script>
+    </body>
+    
+
+        <div class="bottomarrow">
+          <a href="page1.html">
+                    <img src="assets/prev.svg" class="prev"></a>
+          <a href="page3.html">
+                    <img src="assets/next.svg" class="next"></a>
+        </div>
+      </div>
+    
+
+</html>
